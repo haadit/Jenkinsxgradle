@@ -1,18 +1,23 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout SCM') {
+            steps {
+                checkout scm
+            }
+        }
         stage('Build') {
             steps {
-                bat 'mvn clean install'
+                // Replace Maven build command with Gradle
+                bat './gradlew clean build'  // Assuming you have the Gradle wrapper
             }
         }
-
         stage('Test') {
             steps {
-                bat 'mvn test'
+                // Add testing step if needed
+                bat './gradlew test'
             }
         }
-
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
