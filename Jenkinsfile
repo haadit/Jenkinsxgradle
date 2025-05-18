@@ -1,24 +1,26 @@
 pipeline {
     agent any
-    
+
+    tools {
+        maven 'Maven 3.8.6' // Ensure Maven is installed and configured in Jenkins
+    }
+
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                bat 'mvn clean install'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
-                junit '**/target/surefire-reports/*.xml' // Optional for test reporting
+                bat 'mvn test'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-                // Add actual deploy logic here
             }
         }
     }
