@@ -1,13 +1,7 @@
 pipeline {
     agent any
-
+    
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/haadit/Jenkinsxgradle.git'
-            }
-        }
-
         stage('Build') {
             steps {
                 sh 'mvn clean install'
@@ -17,12 +11,14 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
+                junit '**/target/surefire-reports/*.xml' // Optional for test reporting
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
+                // Add actual deploy logic here
             }
         }
     }
